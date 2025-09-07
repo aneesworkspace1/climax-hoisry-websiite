@@ -1,0 +1,115 @@
+/* Dark Mode Styles */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #efefef;
+  --text-primary: #212121;
+  --text-secondary: #424242;
+  --text-muted: #757575;
+  --border-color: #e0e0e0;
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --footer-bg: #212121;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #b0b0b0;
+  --border-color: #404040;
+  --card-bg: #1e1e1e;
+  --header-bg: rgba(18, 18, 18, 0.95);
+  --footer-bg: #000000;
+}
+
+/* Apply dark mode variables */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header {
+  background: var(--header-bg);
+  border-bottom-color: var(--border-color);
+}
+
+.card {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.bg-gray {
+  background-color: var(--bg-secondary) !important;
+}
+
+.footer {
+  background: var(--footer-bg);
+}
+
+.text-gray {
+  color: var(--text-muted) !important;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 1001;
+  background: var(--primary-red);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition);
+}
+
+.dark-mode-toggle:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Mobile navbar scroll styles */
+.nav.open {
+  max-height: 60vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-red) var(--bg-secondary);
+}
+
+.nav.open::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav.open::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.nav.open::-webkit-scrollbar-thumb {
+  background: var(--primary-red);
+  border-radius: 3px;
+}
+
+.nav.open::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red-dark);
+}
+
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    top: 20px;
+    right: 70px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

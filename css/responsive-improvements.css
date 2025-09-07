@@ -1,0 +1,188 @@
+/* Responsive Design Improvements */
+
+/* Base responsive scaling */
+:root {
+  --base-font-size: 16px;
+  --scale-factor: 1;
+  --container-padding: 1rem;
+}
+
+/* Viewport-based scaling */
+@media screen and (max-width: 480px) {
+  :root {
+    --scale-factor: 0.85;
+    --base-font-size: 14px;
+    --container-padding: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --scale-factor: 0.9;
+    --base-font-size: 15px;
+    --container-padding: 0.875rem;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --scale-factor: 0.95;
+    --base-font-size: 15px;
+    --container-padding: 1rem;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  :root {
+    --scale-factor: 1;
+    --base-font-size: 16px;
+    --container-padding: 1.5rem;
+  }
+}
+
+/* Apply scaling to all elements */
+html {
+  font-size: var(--base-font-size);
+}
+
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Maintain proportions for key elements */
+.hero-title {
+  font-size: calc(3rem * var(--scale-factor));
+  line-height: calc(1.2 * var(--scale-factor));
+}
+
+.hero-tagline {
+  font-size: calc(1.5rem * var(--scale-factor));
+}
+
+.section-title {
+  font-size: calc(2.5rem * var(--scale-factor));
+}
+
+.card {
+  padding: calc(var(--spacing-4) * var(--scale-factor));
+  border-radius: calc(var(--border-radius-lg) * var(--scale-factor));
+}
+
+.btn {
+  padding: calc(var(--spacing-2) * var(--scale-factor)) calc(var(--spacing-4) * var(--scale-factor));
+  font-size: calc(1rem * var(--scale-factor));
+}
+
+.btn-large {
+  padding: calc(var(--spacing-3) * var(--scale-factor)) calc(var(--spacing-6) * var(--scale-factor));
+  font-size: calc(1.125rem * var(--scale-factor));
+}
+
+/* Logo scaling */
+.logo {
+  height: calc(60px * var(--scale-factor));
+  min-height: 40px;
+  max-height: 80px;
+}
+
+/* Grid responsive behavior */
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--spacing-4) * var(--scale-factor));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(var(--spacing-4) * var(--scale-factor));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(var(--spacing-4) * var(--scale-factor));
+}
+
+/* Force mobile layout on very small screens */
+@media screen and (max-width: 640px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing-3) * var(--scale-factor));
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--spacing-2) * var(--scale-factor));
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Maintain aspect ratios for images */
+.card-image,
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+/* Responsive typography scaling */
+h1 { font-size: calc(3rem * var(--scale-factor)); }
+h2 { font-size: calc(2.5rem * var(--scale-factor)); }
+h3 { font-size: calc(2rem * var(--scale-factor)); }
+h4 { font-size: calc(1.5rem * var(--scale-factor)); }
+h5 { font-size: calc(1.25rem * var(--scale-factor)); }
+h6 { font-size: calc(1rem * var(--scale-factor)); }
+
+p, li, td, th {
+  font-size: calc(1rem * var(--scale-factor));
+  line-height: calc(1.6 * var(--scale-factor));
+}
+
+/* Spacing adjustments */
+.section {
+  padding: calc(var(--spacing-10) * var(--scale-factor)) 0;
+}
+
+.mt-2 { margin-top: calc(var(--spacing-2) * var(--scale-factor)); }
+.mt-4 { margin-top: calc(var(--spacing-4) * var(--scale-factor)); }
+.mt-6 { margin-top: calc(var(--spacing-6) * var(--scale-factor)); }
+.mb-2 { margin-bottom: calc(var(--spacing-2) * var(--scale-factor)); }
+.mb-4 { margin-bottom: calc(var(--spacing-4) * var(--scale-factor)); }
+.mb-6 { margin-bottom: calc(var(--spacing-6) * var(--scale-factor)); }
+
+/* Ensure minimum touch targets on mobile */
+@media screen and (max-width: 768px) {
+  .btn,
+  .nav-link,
+  .mobile-menu-btn,
+  .dark-mode-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .nav-link {
+    padding: calc(var(--spacing-2) * var(--scale-factor)) calc(var(--spacing-3) * var(--scale-factor));
+  }
+}
+
+/* Prevent horizontal overflow */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Smooth transitions for responsive changes */
+* {
+  transition: font-size 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+}
