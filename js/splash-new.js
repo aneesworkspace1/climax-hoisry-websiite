@@ -1,4 +1,4 @@
-/* New Splash Screen - Split → Zoom → Triple-Bar Reveal */
+/* Enhanced Splash Screen - 3 Second Duration with Diagonal Bar Animation */
 
 class NewSplashScreen {
   constructor() {
@@ -10,7 +10,7 @@ class NewSplashScreen {
     this.isAnimating = false;
     this.hasShown = false;
     
-    // Show splash screen on every page reload
+    // Show splash screen on every page reload/first visit
     this.shouldShow = true;
     
     this.init();
@@ -86,7 +86,7 @@ class NewSplashScreen {
       transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     `;
     
-    // Create diagonal bars
+    // Create diagonal bars for the enhanced animation
     for (let i = 0; i < 3; i++) {
       const bar = document.createElement('div');
       bar.className = `diagonal-bar bar-${i + 1}`;
@@ -101,7 +101,7 @@ class NewSplashScreen {
         transition: transform 300ms cubic-bezier(0.42, 0, 0.58, 1);
       `;
       
-      // Position bars with stagger
+      // Position bars with proper spacing for diagonal sweep
       const topOffset = -30 + (i * 50);
       bar.style.top = `${topOffset}vh`;
       bar.style.right = '-75vw';
@@ -163,17 +163,24 @@ class NewSplashScreen {
       this.splashElement.style.backgroundColor = '#000000';
     }, 1300);
     
-    // FRAME 6-7: Bars Sweep In (1500-1800ms)
+    // FRAME 6: Bar-1 Sweep (1500-1650ms) - First diagonal bar
     setTimeout(() => {
-      this.bars.forEach((bar, index) => {
-        setTimeout(() => {
-          bar.style.transitionDelay = `${index * 50}ms`;
-          bar.style.transform = 'rotate(-45deg) translateX(0)';
-        }, index * 150);
-      });
+      this.bars[0].style.transitionDelay = '0ms';
+      this.bars[0].style.transform = 'rotate(-45deg) translateX(0)';
     }, 1500);
     
-    // FRAME 8: Bars Slide Off & Reveal Homepage (1800-2000ms)
+    // FRAME 7: Bar-2 + Bar-3 Join (1650-1800ms) - Remaining bars with stagger
+    setTimeout(() => {
+      this.bars[1].style.transitionDelay = '50ms';
+      this.bars[1].style.transform = 'rotate(-45deg) translateX(0)';
+      
+      setTimeout(() => {
+        this.bars[2].style.transitionDelay = '0ms';
+        this.bars[2].style.transform = 'rotate(-45deg) translateX(0)';
+      }, 75);
+    }, 1650);
+    
+    // FRAME 8: Bars Slide Off & Reveal Homepage (1800-3000ms)
     setTimeout(() => {
       this.bars.forEach((bar, index) => {
         setTimeout(() => {
@@ -183,10 +190,10 @@ class NewSplashScreen {
       });
     }, 1800);
     
-    // Complete animation (2000ms)
+    // Complete animation (3000ms - 3 seconds total)
     setTimeout(() => {
       this.completeAnimation();
-    }, 2000);
+    }, 3000);
   }
   
   skipAnimation() {
@@ -229,12 +236,13 @@ class NewSplashScreen {
   }
 }
 
-// Initialize new splash screen when DOM is ready
+// Initialize splash screen when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Show splash on homepage every time
+  // Show splash on homepage every time (reload or first visit)
   const isHomepage = window.location.pathname === '/' || 
                     window.location.pathname === '/index.html' ||
-                    window.location.pathname.endsWith('/');
+                    window.location.pathname.endsWith('/') ||
+                    window.location.pathname === '';
   
   if (isHomepage && !window.splashDisabled) {
     window.newSplashScreen = new NewSplashScreen();

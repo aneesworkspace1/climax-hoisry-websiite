@@ -3,7 +3,7 @@
 class EnhancedClimaxHosiery {
   constructor() {
     this.init();
-    this.initDarkMode();
+    this.initNewDarkMode();
     this.initMobileScrollEnhancements();
     this.initResponsiveScaling();
   }
@@ -20,8 +20,8 @@ class EnhancedClimaxHosiery {
     this.setupYarnAnimation();
   }
 
-  // Dark Mode Implementation
-  initDarkMode() {
+  // New Dark Mode Implementation - "One-Click Night Shift"
+  initNewDarkMode() {
     this.darkModeToggle = this.createDarkModeToggle();
     this.loadDarkModePreference();
     this.setupDarkModeListeners();
@@ -30,7 +30,7 @@ class EnhancedClimaxHosiery {
   createDarkModeToggle() {
     const toggle = document.createElement('button');
     toggle.className = 'dark-mode-toggle';
-    toggle.innerHTML = '🌙';
+    toggle.innerHTML = '<span class="toggle-icon">☾</span>';
     toggle.setAttribute('aria-label', 'Toggle dark mode');
     toggle.title = 'Toggle dark mode';
     document.body.appendChild(toggle);
@@ -43,11 +43,17 @@ class EnhancedClimaxHosiery {
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       this.enableDarkMode();
+    } else {
+      this.disableDarkMode();
     }
   }
 
   setupDarkModeListeners() {
     this.darkModeToggle.addEventListener('click', () => {
+      this.darkModeToggle.classList.add('switching');
+      setTimeout(() => {
+        this.darkModeToggle.classList.remove('switching');
+      }, 280);
       this.toggleDarkMode();
     });
 
@@ -74,14 +80,14 @@ class EnhancedClimaxHosiery {
 
   enableDarkMode() {
     document.documentElement.setAttribute('data-theme', 'dark');
-    this.darkModeToggle.innerHTML = '☀️';
+    this.darkModeToggle.innerHTML = '<span class="toggle-icon">🌞</span>';
     this.darkModeToggle.title = 'Switch to light mode';
     localStorage.setItem('theme', 'dark');
   }
 
   disableDarkMode() {
     document.documentElement.setAttribute('data-theme', 'light');
-    this.darkModeToggle.innerHTML = '🌙';
+    this.darkModeToggle.innerHTML = '<span class="toggle-icon">☾</span>';
     this.darkModeToggle.title = 'Switch to dark mode';
     localStorage.setItem('theme', 'light');
   }
